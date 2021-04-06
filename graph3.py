@@ -10,38 +10,54 @@ jsonfile = open('sample_data.json')
 # parse json and return python dictionary
 data = json.load(jsonfile)
 
+def findNodes():
 # add nodes to empty list
-all_nodes = []
+    nodes = []
 
-for i in data['buses']:
-    all_nodes.append(i['number'])
+    for i in data['buses']:
+        nodes.append(i['number'])
 
-# find edges from json file nodes
-def find_edges(n):
+    return nodes
+
+
+def findEdges(nodes):
     edges = []
-    for i in data['lines']:
-        if i['i'] and i['j'] in n:
-            edges.append((i['i'],i['j']))
 
-    # for transformers add edges taking into account value of k
+    for i in data['lines']:
+        line = [i['i'], i['j']]
+        exists =  all(elem in nodes for elem in line)
+        if exists:
+            edges.append((i['i'],i['j']))
+    
     for i in data['transformers']:
         if i['k'] != 0:
-            if i['i'] and i['j'] in n:
+
+            line1 = [i['i'], i['j']]
+            exists1 =  all(elem in nodes for elem in line1)
+            if exists1:
                 edges.append((i['i'],i['j']))
-            elif i['j'] and i['k'] in n:
+
+            line2 = [i['j'], i['k']]
+            exists2 =  all(elem in nodes for elem in line2)
+            if exists2:
                 edges.append((i['j'],i['k']))
-            elif i['k'] and i['i'] in n:
+
+            line3 = [i['k'], i['i']]
+            exists3 =  all(elem in nodes for elem in line3)
+            if exists3:
                 edges.append((i['k'],i['i']))
+
         else:
-            if i['i'] and i['j'] in n:
+            line1 = [i['i'], i['j']]
+            exists1 =  all(elem in nodes for elem in line1)
+            if exists1:
                 edges.append((i['i'],i['j']))
 
     return edges
 
-
 # function to determine level of 
 # each node starting from x using BFS 
-def printLevels(graph, x, lvl):
+def getTargetNodes(graph, x, lvl):
       
     # array to store level of each node 
     level = [None] * (max(graph) + 1)
@@ -91,17 +107,18 @@ def printLevels(graph, x, lvl):
 
         explored.append(x)
 
-    return explored[:-1]
+    return explored
 
 
 # Function to build the graph
-def build_graph(nodes):
-    edges = find_edges(all_nodes)
+def build_graph():
+    all_nodes = findNodes()
+    all_edges = findEdges(all_nodes)
     graph = defaultdict(list)
       
     # Loop to iterate over every 
     # edge of the graph
-    for edge in edges:
+    for edge in all_edges:
         a, b = edge[0], edge[1]
           
         # Creating the graph 
@@ -117,22 +134,17 @@ levels = input('level')
 levels = int(levels)
 
 if __name__ == "__main__":
-    graph = build_graph(all_nodes)
+    graph = build_graph()
     
-    print(graph[80005])
+    #print(graph[80005])
       
-    print(printLevels(graph, target, levels))
+    user_req_nodes = getTargetNodes(graph, target, levels)
 
-#user_req_nodes = (g.BFS(target, levels))
-#user_req_edges = find_edges(user_req_nodes)
-
+    user_req_edges = findEdges(user_req_nodes)
 
 
 
 
-
-
-'''
 # initialize empty directed graph and convert to undirected
 DG = nx.DiGraph()
 G = nx.Graph(DG)
@@ -150,5 +162,5 @@ plt.show()
 
 
 jsonfile.close()
-'''
+
 
