@@ -82,7 +82,7 @@ class Graph:
                 # queue and print it
                 s = queue.pop(0)
                 final_nodes.append(s)
-                
+
                 # Get all adjacent vertices of the
                 # dequeued vertex s. If a adjacent
                 # has not been visited, then mark it
@@ -102,7 +102,8 @@ g = Graph()
 all_edges = find_edges(all_nodes)
 for i in all_edges:
     g.addEdge(i[0],i[1])
-
+    
+#print(g.graph)
 
 target = input('target')
 target = int(target)
@@ -111,6 +112,7 @@ levels = int(levels)
 
 user_req_nodes = (g.BFS(target, levels))
 user_req_edges = find_edges(user_req_nodes)
+print(user_req_nodes)
 
 
 # initialize empty directed graph and convert to undirected
