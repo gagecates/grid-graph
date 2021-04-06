@@ -10,6 +10,8 @@ jsonfile = open('sample_data.json')
 # parse json and return python dictionary
 data = json.load(jsonfile)
 
+
+# find nodes --------------------------------------------
 def findNodes():
 # add nodes to empty list
     nodes = []
@@ -19,7 +21,7 @@ def findNodes():
 
     return nodes
 
-
+# find edges -------------------------------------------
 def findEdges(nodes):
     edges = []
 
@@ -55,7 +57,7 @@ def findEdges(nodes):
 
     return edges
 
-# function to determine level of 
+# BFS algorithm to find target nodes --------------------------
 # each node starting from x using BFS 
 def getTargetNodes(graph, x, lvl):
       
@@ -109,8 +111,7 @@ def getTargetNodes(graph, x, lvl):
 
     return explored
 
-
-# Function to build the graph
+# construct graph --------------------------------
 def build_graph():
     all_nodes = findNodes()
     all_edges = findEdges(all_nodes)
@@ -142,9 +143,7 @@ if __name__ == "__main__":
 
     user_req_edges = findEdges(user_req_nodes)
 
-
-
-
+# graph display output ------------------------------
 # initialize empty directed graph and convert to undirected
 DG = nx.DiGraph()
 G = nx.Graph(DG)
@@ -157,8 +156,9 @@ pos = nx.spring_layout(G)
 
 nx.draw_networkx_nodes(G, pos, node_size=500)
 nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
-nx.draw_networkx_labels(G, pos)
-plt.show()
+nx.draw_networkx_labels(G, pos, font_size=6)
+#plt.show()
+plt.savefig("plot.png", dpi=1000)
 
 
 jsonfile.close()
