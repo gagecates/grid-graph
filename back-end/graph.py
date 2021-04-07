@@ -3,6 +3,13 @@ import matplotlib.pyplot as plt
 import json
 from collections import defaultdict
 import queue 
+from flask import Flask
+
+
+def create_app(test_config=None):
+    # create and configure the app
+    app = Flask(__name__)
+    setup_db(app)
 
 # open json file
 jsonfile = open('sample_data.json')
@@ -116,6 +123,7 @@ def build_graph():
     all_nodes = findNodes()
     all_edges = findEdges(all_nodes)
     graph = defaultdict(list)
+    print(all_nodes)
       
     # Loop to iterate over every 
     # edge of the graph
@@ -160,7 +168,6 @@ nx.draw_networkx_labels(G, pos, font_size=6)
 #plt.show()
 plt.savefig("plot.png", dpi=1000)
 
-
-jsonfile.close()
+#jsonfile.close()
 
 
