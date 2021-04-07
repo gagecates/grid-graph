@@ -153,13 +153,13 @@ def display_graph(edges):
     #plt.show()
    
     client_image_file = '../plot.png'
-    plt.savefig('../front-end/build/plot.png', dpi=1000)
+    plt.savefig('./front-end/build/plot.png', dpi=1000)
     
     return client_image_file
 
 
 
-app = Flask(__name__, static_folder='../front-end/build', static_url_path='/')
+app = Flask(__name__, static_folder='./front-end/build', static_url_path='/')
 CORS(app)
 
 @app.after_request
