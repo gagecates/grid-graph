@@ -158,55 +158,60 @@ def display_graph(edges):
     return client_image_file
 
 
-
-app = Flask(__name__, static_folder='./front-end/build', static_url_path='/')
-CORS(app)
-
-@app.after_request
-def after_request(response):
-    response.headers.add(
-        'Access-Control-Allow-Headers',
-        'Content-Type,Authorization,true',)
-    response.headers.add(
-        'Access-Control-Allow-Methods',
-        'GET,PUT,POST,DELETE,OPTIONS')
-    response.headers.add(
-        'Access-Control-Allow-Origin',
-        '*')
-    return response
+def create_app(test_config=None):
+    # create and configure the app
+    app = Flask(__name__, static_folder='./front-end/build', static_url_path='/')
 
 
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
+    @app.after_request
+    def after_request(response):
+        response.headers.add(
+            'Access-Control-Allow-Headers',
+            'Content-Type,Authorization,true',)
+        response.headers.add(
+            'Access-Control-Allow-Methods',
+            'GET,PUT,POST,DELETE,OPTIONS')
+        response.headers.add(
+            'Access-Control-Allow-Origin',
+            '*')
+        return response
 
 
-@app.route('/graph', methods=["POST"])
-def build_user_graph():
-    graph_data = request.get_json()
-    target = int(graph_data['target'])
-    levels = int(graph_data['levels'])
+    @app.route('/')
+    def index():
+        return app.send_static_file('index.html')
 
-    graph = build_graph()
-    #print(graph[10001])
-    
-    user_req_nodes = getTargetNodes(graph, target, levels)
-    user_req_edges = findEdges(user_req_nodes)
-    #print(user_req_edges)
-    #print(user_req_nodes)
-    image_file = display_graph(user_req_edges)
-    
-    if len(user_req_edges) == 0:
-        return jsonify({
-            'message': 'There are no other buses connected to this bus. Please enter a new starting point.',
-            'image': None
-        })
-    else:
 
-        return jsonify({
-            'message': 'success',
-            'image': image_file
-        })
+    @app.route('/graph', methods=["POST"])
+    def build_user_graph():
+        graph_data = request.get_json()
+        target = int(graph_data['target'])
+        levels = int(graph_data['levels'])
+
+        graph = build_graph()
+        #print(graph[10001])
+        
+        user_req_nodes = getTargetNodes(graph, target, levels)
+        user_req_edges = findEdges(user_req_nodes)
+        #print(user_req_edges)
+        #print(user_req_nodes)
+        image_file = display_graph(user_req_edges)
+        
+        if len(user_req_edges) == 0:
+            return jsonify({
+                'message': 'There are no other buses connected to this bus. Please enter a new starting point.',
+                'image': None
+            })
+        else:
+
+            return jsonify({
+                'message': 'success',
+                'image': image_file
+            })
+
+    return app
+
+app = create_app()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
