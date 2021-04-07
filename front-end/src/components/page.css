@@ -6,7 +6,7 @@ body{
 }
 
 .header{
-    height: 175px;
+    height: 125px;
     background-color: rgb(33, 124, 243);
     display: flex;
     align-items: center;
@@ -29,8 +29,6 @@ p{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 2px solid black;
-    min-height: 70vh;
 }
 .overview{
     text-align: center;
@@ -63,4 +61,17 @@ input{
     cursor: pointer;
     padding: 10px 70px;
     border-radius: 5px;
+  }
+
+  .graph{
+      height: 1000px;
+      width: 1000px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+  .loading{
+      margin: auto;
+      padding-top: 100px;
   }

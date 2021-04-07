@@ -1,19 +1,28 @@
 import React from 'react';
+import UserInput from './UserInput';
 import GraphDisplay from './GraphDisplay';
-import flask from '../api/flask';
 import './page.css';
+import axios from 'axios';
 
 class App extends React.Component {
-  state = { graph: '' };
+  state = { 
+    graph: null,
+    showGraph: false
+  };
 
-  onFormSubmit = async (term) => {
-    const response = await flask.get('/search', {
-      params: {
-        
-      },
-    });
+  onFormSubmit = async (target, levels) => {
 
-    this.setState({graph: response.data});
+    this.setState({graph: null});
+    this.setState({showGraph: true})
+
+    const { data } = await axios.post('http://localhost:5000/graph', {target: target, levels: levels})
+    if (data.image === null){
+      alert(data.message)
+      this.setState({showGraph: false})
+    }else{
+      this.setState({graph: data.image});
+    }
+
   };
 
   render() {
@@ -23,7 +32,8 @@ class App extends React.Component {
         <h3>Introductory Project for Frontend Engineer</h3>
       </div>
       <div className='main-content'>
-        <GraphDisplay onFormSubmit={this.onFormSubmit}/>
+        <UserInput onFormSubmit={this.onFormSubmit}/>
+        { this.state.showGraph && <GraphDisplay graph={this.state.graph}/>}
       </div>
     </div>
     );
