@@ -14,4 +14,4 @@ The backend operates as follows:
 5. Pyton libraries networkx and matplotlib used to provide graph plot.
 6. Backend serves plot to be displayed on front end for user.
 
-[## View deployed app here!](https://grid-view-gmc.herokuapp.com/).
+[View deployed app here!](https://grid-view-gmc.herokuapp.com/).
