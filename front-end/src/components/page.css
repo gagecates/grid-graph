@@ -122,6 +122,10 @@ input{
     margin: 5px;
 }
 
+input, label {
+    display:block;
+}
+
 .button {
     background-color: #17AD47;
     border: none;
