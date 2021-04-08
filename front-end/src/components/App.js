@@ -15,7 +15,7 @@ class App extends React.Component {
     this.setState({graph: null});
     this.setState({showGraph: true})
 
-    const { data } = await axios.post('https://git.heroku.com/grid-view-gmc.git/graph', {target: target, levels: levels})
+    const { data } = await axios.post('https://grid-view-gmc.herokuapp.com/graph', {target: target, levels: levels})
     if (data.image === null){
       alert(data.message)
       this.setState({showGraph: false})
