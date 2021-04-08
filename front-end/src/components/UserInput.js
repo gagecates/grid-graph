@@ -3,7 +3,10 @@ import React from 'react';
 class UserInput extends React.Component {
     state = { 
         buss: null,
-        level: null
+        level: null,
+        bussValid: false,
+        levelValid: false,
+        formValid: false
     };
 
     onBussChange = event => {
@@ -28,12 +31,13 @@ class UserInput extends React.Component {
                 <form onSubmit={this.onFormSubmit} className="form">
                     <div className='user-input'>
                         <div className="field">
-                            <label>Starting Buss</label>
+                            <label>Starting Bus</label>
                             <input
                                 type="number"
                                 value={this.state.buss}
                                 placeholder="10001-80100"
                                 onChange={this.onBussChange}
+                                required
                             />
                         </div>
                         <div className="field">
@@ -42,17 +46,18 @@ class UserInput extends React.Component {
                                 type="number"
                                 value={this.state.level}
                                 onChange={this.onLevelChange}
+                                required
                             />
                         </div>
                     </div>
                     <button type='submit' className="button button1">Fetch Graph</button>
                 </form>
-
-                
-                
             </div>
+
+            
         );
     }
 }
+
 
 export default UserInput;

@@ -34,6 +34,9 @@ class App extends React.Component {
       <div className='main-content'>
         <UserInput onFormSubmit={this.onFormSubmit}/>
         { this.state.showGraph && <GraphDisplay graph={this.state.graph}/>}
+        <div className='hire-me'>
+          <div>Hire Gage Cates<br/>2020</div>
+        </div>
       </div>
     </div>
     );
