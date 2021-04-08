@@ -1,6 +1,7 @@
 import React from 'react';
 
 const GraphDisplay = ({graph}) => {
+    console.log(graph)
 
     if (!graph) {
         return <div className='loading'>Loading...</div>;

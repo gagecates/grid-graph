@@ -103,7 +103,6 @@ def getTargetNodes(graph, x, lvl):
             if (not marked[b]): 
                 # level of b is level of x + 1 
                 level[b] = level[x] + 1
-                print(level[b])
                 
                 if level[b] == lvl + 1:
                     return explored[:-1]
@@ -134,7 +133,7 @@ def build_graph():
         graph[b].append(a)
     return graph
 
-def display_graph(edges):
+def display_graph(edges, target, lvl):
     # graph display output ------------------------------
     # initialize empty directed graph and convert to undirected
     DG = nx.DiGraph()
@@ -147,13 +146,14 @@ def display_graph(edges):
     pos = nx.spring_layout(G)
     matplotlib.pyplot.switch_backend('Agg')
 
-    nx.draw_networkx_nodes(G, pos, node_size=500)
+    nx.draw_networkx_nodes(G, pos, node_size=200)
     nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
-    nx.draw_networkx_labels(G, pos, font_size=6)
+    nx.draw_networkx_labels(G, pos, font_size=5)
     #plt.show()
-   
-    client_image_file = '../plot.png'
-    plt.savefig('./front-end/build/plot.png', dpi=1000)
+    
+    key = target + lvl
+    client_image_file = f'../plot{key}.png'
+    plt.savefig(f'./front-end/build/plot{key}.png', dpi=1000)
     
     return client_image_file
 
@@ -194,8 +194,9 @@ def create_app(test_config=None):
         user_req_nodes = getTargetNodes(graph, target, levels)
         user_req_edges = findEdges(user_req_nodes)
         #print(user_req_edges)
-        #print(user_req_nodes)
-        image_file = display_graph(user_req_edges)
+        image_file = display_graph(user_req_edges, target, levels)
+        
+
         
         if len(user_req_edges) == 0:
             return jsonify({
@@ -203,7 +204,6 @@ def create_app(test_config=None):
                 'image': None
             })
         else:
-
             return jsonify({
                 'message': 'success',
                 'image': image_file

@@ -14,8 +14,8 @@ class App extends React.Component {
 
     this.setState({graph: null});
     this.setState({showGraph: true})
-
     const { data } = await axios.post('https://grid-view-gmc.herokuapp.com/graph', {target: target, levels: levels})
+    
     if (data.image === null){
       alert(data.message)
       this.setState({showGraph: false})
@@ -28,17 +28,17 @@ class App extends React.Component {
   render() {
     return (
       <div>
-      <div className='header'>
-        <h3>Introductory Project for Frontend Engineer</h3>
-      </div>
-      <div className='main-content'>
-        <UserInput onFormSubmit={this.onFormSubmit}/>
-        { this.state.showGraph && <GraphDisplay graph={this.state.graph}/>}
+        <div className='header'>
+          <h3>Introductory Project for Frontend Engineer</h3>
+        </div>
+        <div className='main-content'>
+          <UserInput onFormSubmit={this.onFormSubmit}/>
+          { this.state.showGraph && <GraphDisplay graph={this.state.graph}/>}
+        </div>
         <div className='hire-me'>
           <div>Hire Gage Cates<br/>2020</div>
         </div>
       </div>
-    </div>
     );
   }
 }
