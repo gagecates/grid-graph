@@ -22,7 +22,6 @@ The backend operates as follows:
 that you would like to clone it to and open the terminal. Run: 
 ```
 git clone https://github.com/gagecates/grid-graph.git
-
 ```
 
 2. Navigate to the root of the project named 'sample app'
