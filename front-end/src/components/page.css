@@ -169,4 +169,8 @@ input{
         width: 100vw;
         height: auto;
     }
+
+    .field{
+        padding-right: 5px;
+    }
 }
