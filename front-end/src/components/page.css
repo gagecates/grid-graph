@@ -9,14 +9,40 @@ body{
 }
 
 .header{
-    height: 100px;
+    height: 150px;
     background-color: #217cf3;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     font-size: 24px;
     color: white;
     font-family: "Open Sans"
+}
+
+.fadeImage{
+    animation: fadeInAnimation ease 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+.image-bg-fluid-height {
+    background-image: url('../grid-image.jpeg');
+    padding: 100px 0px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100px;
 }
 
 h3{
@@ -24,8 +50,52 @@ h3{
     font-weight: 300;
 }
 
+.nav-bar{
+    height: 100px;
+    background-color: white;
+}
+
+ul a{
+    text-decoration: none;
+    float: right;
+    list-style-type: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: #777;
+    font-size: 14px;
+}
+
+ul{
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+}
+
+ul li{
+    list-style-type: none;
+    padding-right: 15px;
+}
+
+.header-pic-title{
+    text-align: center;
+    font-size: 60px;
+    font-weight: bolder;
+    text-shadow: 2px 0 #888888;
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.title-small{
+    font-size: 30px;
+    color: green;
+    padding: 0;
+    margin: 0;
+    text-shadow: none;
+}
+
 p{
-    font-size: 21px;
+    font-size: 16px;
 }
 
 .main-content{

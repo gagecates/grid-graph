@@ -88,8 +88,6 @@ class UserInput extends React.Component {
                     <button type='submit' className="button button1">Fetch Graph</button>
                 </form>
             </div>
-
-            
         );
     }
 }

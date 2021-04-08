@@ -28,24 +28,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div className='navbar'>
-          <ul>
-            <a href='https://github.com/gagecates/grid-graph'><li>GitHub Repo</li></a>
-          </ul>
-        </div>
-        <div className='image-bg-fluid-height fadeImage'>
-          <h4 className='header-pic-title'>Hire Gage Cates</h4>
-          <p className='header-pic-title title-small'>2021</p>
-        </div>
         <div className='header'>
           <h3>Introductory Project for Frontend Engineer</h3>
         </div>
         <div className='main-content'>
           <UserInput onFormSubmit={this.onFormSubmit}/>
-          {this.state.showGraph && <GraphDisplay graph={this.state.graph}/>}
+          { this.state.showGraph && <GraphDisplay graph={this.state.graph}/>}
         </div>
         <div className='hire-me'>
-          <div>Hire Gage Cates<br/>2021</div>
+          <div>Hire Gage Cates<br/>2020</div>
         </div>
       </div>
     );

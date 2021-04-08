@@ -11,13 +11,11 @@ from flask_cors import CORS, cross_origin
 # creates non interactive backend for GUI to avoid app crash
 #matplotlib.use('agg')
 
-
 # open json file
 jsonfile = open('sample_data.json')
 
 # parse json and return python dictionary
 data = json.load(jsonfile)
-
 
 # find nodes --------------------------------------------
 def findNodes():
@@ -149,8 +147,9 @@ def display_graph(edges, target, lvl):
     nx.draw_networkx_nodes(G, pos, node_size=200)
     nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
     nx.draw_networkx_labels(G, pos, font_size=5)
-    #plt.show()
+    # plt.show()
     
+    # creates unique key attached to file name to avoid browser caching
     key = target + lvl
     client_image_file = f'../plot{key}.png'
     plt.savefig(f'./front-end/build/plot{key}.png', dpi=1000)
@@ -161,7 +160,6 @@ def display_graph(edges, target, lvl):
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, static_folder='./front-end/build', static_url_path='/')
-
 
     @app.after_request
     def after_request(response):
@@ -176,7 +174,7 @@ def create_app(test_config=None):
             '*')
         return response
 
-
+    # routing ----------------------------
     @app.route('/')
     def index():
         return app.send_static_file('index.html')
@@ -189,15 +187,12 @@ def create_app(test_config=None):
         levels = int(graph_data['levels'])
 
         graph = build_graph()
-        #print(graph[10001])
-        
+
         user_req_nodes = getTargetNodes(graph, target, levels)
         user_req_edges = findEdges(user_req_nodes)
-        #print(user_req_edges)
         image_file = display_graph(user_req_edges, target, levels)
-        
 
-        
+
         if len(user_req_edges) == 0:
             return jsonify({
                 'message': 'There are no other buses connected to this bus. Please enter a new starting point.',
