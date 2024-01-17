@@ -14,7 +14,7 @@ class App extends React.Component {
     const endpoint =
       process.env.NODE_ENV === "development"
         ? "http://127.0.0.1:5000/graph"
-        : "https://grid-view-gmc.herokuapp.com/graph";
+        : "https://grid-graph-bf4b1268c069.herokuapp.com/graph";
 
     this.setState({ graph: null });
     this.setState({ showGraph: true });
