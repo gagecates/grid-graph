@@ -1,3 +1,5 @@
+import base64
+import io
 import os
 import networkx as nx
 import matplotlib.pyplot as plt  
@@ -6,7 +8,6 @@ import json
 from collections import defaultdict
 import queue 
 from flask import Flask, jsonify, request, send_file
-from flask_cors import CORS, cross_origin
 
 # creates non interactive backend for GUI to avoid app crash
 #matplotlib.use('agg')
@@ -150,11 +151,19 @@ def display_graph(edges, target, lvl):
     # plt.show()
     
     # creates unique key attached to file name to avoid browser caching
-    key = target + lvl
-    client_image_file = f'../plot{key}.png'
-    plt.savefig(f'./front-end/build/plot{key}.png', dpi=1000)
+    # key = target + lvl
+    # client_image_file = f'../plot{key}.png'
+    img = io.BytesIO()
+    plt.savefig(img, dpi=1000, format='png')
+    img.seek(0)
     
-    return client_image_file
+    
+    return img
+
+
+def encode_image_to_base64(img):
+    img_str = base64.b64encode(img.getvalue()).decode()
+    return img_str
 
 
 def create_app(test_config=None):
@@ -191,6 +200,7 @@ def create_app(test_config=None):
         user_req_nodes = getTargetNodes(graph, target, levels)
         user_req_edges = findEdges(user_req_nodes)
         image_file = display_graph(user_req_edges, target, levels)
+        img_base64 = encode_image_to_base64(image_file)
 
 
         if len(user_req_edges) == 0:
@@ -201,7 +211,7 @@ def create_app(test_config=None):
         else:
             return jsonify({
                 'message': 'success',
-                'image': image_file
+                'image': img_base64
             })
 
     return app

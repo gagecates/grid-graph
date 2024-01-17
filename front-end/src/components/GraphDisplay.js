@@ -1,18 +1,15 @@
-import React from 'react';
+import React from "react";
 
-const GraphDisplay = ({graph}) => {
-    console.log(graph)
+const GraphDisplay = ({ graph }) => {
+  if (!graph) {
+    return <div className="loading">Loading...</div>;
+  }
 
-    if (!graph) {
-        return <div className='loading'>Loading...</div>;
-      }
-
-    return(
-
-        <div className='graph-container'>
-            <img className='graph' src={graph} alt="img" />
-        </div>
-    )
+  return (
+    <div className="graph-container">
+      <img className="graph" src={`data:image/png;base64,${graph}`} alt="img" />
+    </div>
+  );
 };
 
 export default GraphDisplay;
